@@ -1,7 +1,7 @@
 {
   "name": "easy-multicall",
-  "version": "1.0.0",
   "description": "Simple library to batch web3 calls using ethers.js",
+  "version": "1.0.1",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,11 +9,19 @@
   "keywords": [ "web3", "ethereum", "ethers", "multicall" ],
   "author": "Philippe Dumonet",
   "license": "GPL-3.0-only",
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-plugin-prettier": "^4.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Philogy/easy-multicall"
   },
   "dependencies": {
     "ethers": "^5.4.7"
+  },
+  "bugs": {
+    "url": "https://github.com/Philogy/easy-multicall/issues"
+  },
+  "homepage": "https://github.com/Philogy/easy-multicall",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0"
   }
 }
