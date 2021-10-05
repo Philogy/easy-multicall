@@ -28,12 +28,12 @@ async function main() {
 
   // calls have to be an array created by a call encoder
   // calls can be nested 1 layer deep
-  const [totalSupply, balances] = await multicall([
+  const [[totalSupply], balances] = await multicall([
     tokenCallEncoder('totalSupply'),
     accounts.map(account => tokenCallEncoder('balanceOf', account))
   ])
 
-  console.log('total supply:', totalSupply)
+  console.log('total supply:', ethers.utils.formatUnits(totalSupply))
   balances.forEach((balance, i) => {
     console.log(`the balance of ${accounts[i]} is ${ethers.utils.formatUnits(balance)}`)
   })
