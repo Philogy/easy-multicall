@@ -37,13 +37,30 @@ const getMulticaller = (address, provider) => {
 
 const createCallEncoder = (abi, address) => {
   const cIntf = new ethers.utils.Interface(abi)
-  return (method, ...args) => ({
-    call: {
-      target: address,
-      callData: cIntf.encodeFunctionData(method, args)
-    },
-    decodeReturn: (data) => cIntf.decodeFunctionResult(method, data)
-  })
+  return (method, ...args) => {
+    let methodName, unpackSingle
+    if (typeof method === 'string') {
+      methodName = method
+      unpackSingle = true
+    } else {
+      methodName = method.method
+      unpackSingle = method.unpackSingle
+    }
+
+    return {
+      call: {
+        target: address,
+        callData: cIntf.encodeFunctionData(methodName, args)
+      },
+      decodeReturn: (data) => {
+        const decoded = cIntf.decodeFunctionResult(methodName, data)
+        if (unpackSingle && decoded instanceof Array && decoded.length === 1) {
+          return decoded[0]
+        }
+        return decoded
+      }
+    }
+  }
 }
 
 module.exports = { getMulticaller, createCallEncoder }
