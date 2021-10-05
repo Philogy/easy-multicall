@@ -17,7 +17,7 @@ const ERC20 = require('/your-artifacts-storage-folder/ERC20.json')
 
 async function main() {
   // default localhost:8545 provider
-  const provider = new ethers.provider.JsonRpcProvider()
+  const provider = new ethers.providers.JsonRpcProvider()
   const multicall = getMulticaller('0xF4697bDEF3477d00c464909Edf90f322C7200C38', provider)
   const accounts = [
     '0x15fc9e8208C23708DA9E147bDcD2D9B3bf10990b',
