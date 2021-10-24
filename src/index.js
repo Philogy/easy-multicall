@@ -2,7 +2,10 @@ const MulticallAbi = require('./MulticallAbi.json')
 const { ethers } = require('ethers')
 
 const doMulticall = async (multicaller, calls, blockTag) => {
-  const { blockNumber, returnData } = await multicaller.aggregate(calls.map(({ call }) => call), { blockTag })
+  const { blockNumber, returnData } = await multicaller.aggregate(
+    calls.map(({ call }) => call),
+    { blockTag }
+  )
   const decodedReturnData = calls.map(({ decodeReturn: decoder }, i) => decoder(returnData[i]))
   return {
     blockNumber: blockNumber.toNumber(),
@@ -12,7 +15,7 @@ const doMulticall = async (multicaller, calls, blockTag) => {
 
 const getMulticaller = (address, provider) => {
   const multicaller = new ethers.Contract(address, MulticallAbi, provider)
-  return async (calls, { includeBlock = false, blockTag = undefined }) => {
+  return async (calls, { includeBlock = false, blockTag }) => {
     const res = await doMulticall(
       multicaller,
       calls.reduce(
